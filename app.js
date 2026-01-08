@@ -32,8 +32,17 @@ btnCargar.onclick = cargarRegistros;
 
 async function cargarRegistros() {
   const resp = await fetch(URL_GET);
-  const data = await resp.json();
+  let data;
+  try {
+    data = await resp.json();
+  } catch {
+    data = { error: await resp.text() };
+  }
   const div = document.getElementById('resultados');
+  if (data.error) {
+    div.innerHTML = '<span style="color:red">' + data.error + '</span>';
+    return;
+  }
   if (!Array.isArray(data) || data.length === 0) {
     div.innerHTML = '<em>No hay registros activos.</em>';
     return;
