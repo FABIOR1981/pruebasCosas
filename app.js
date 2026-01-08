@@ -1,6 +1,6 @@
 // Configura la URL de tu función Netlify real:
-const URL_UPDATE = 'https://TU-SITIO-NETLIFY.netlify.app/.netlify/functions/update-archivo';
-const URL_GET = 'https://TU-SITIO-NETLIFY.netlify.app/.netlify/functions/get-archivo?proyecto=pruebasCosas&archivo=pruebas.json';
+const URL_UPDATE = 'https://bibliofaro.netlify.app/.netlify/functions/update-archivo';
+const URL_GET = 'https://bibliofaro.netlify.app/.netlify/functions/get-archivo?proyecto=pruebasCosas&archivo=pruebasCosas.json';
 
 // Guardar registro
 const form = document.getElementById('form-guardar');
