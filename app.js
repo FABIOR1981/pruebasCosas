@@ -1,6 +1,6 @@
-// Configura la URL de tu función Netlify real:
-const URL_UPDATE = 'https://bibliofaro.netlify.app/.netlify/functions/update-archivo';
-const URL_GET = 'https://bibliofaro.netlify.app/.netlify/functions/get-archivo?proyecto=pruebasCosas&archivo=pruebasCosas.json';
+// Cargar configuración global
+// (asegúrate de incluir <script src="config.js"></script> antes de app.js en index.html)
+const { PROYECTO, ARCHIVO, URL_UPDATE, URL_GET } = CONFIG;
 
 // Guardar o modificar registro
 const form = document.getElementById('form-guardar');
@@ -13,8 +13,8 @@ form.onsubmit = async function(e) {
   // Verificar si el ID ya existe en los registros actuales
   const existe = registrosActuales.some(r => r.id === id && r.activo !== false);
   const body = {
-    proyecto: 'pruebasCosas',
-    archivo: 'pruebasCosas.json',
+    proyecto: PROYECTO,
+    archivo: ARCHIVO,
     accion: existe ? 'modificar' : 'agregar',
     id,
     datos: { nombre }
@@ -75,8 +75,8 @@ window.editarRegistro = function(id, nombre) {
 window.eliminarRegistro = async function(id) {
   if (!confirm('¿Eliminar este registro?')) return;
   const body = {
-    proyecto: 'pruebasCosas',
-    archivo: 'pruebasCosas.json',
+    proyecto: PROYECTO,
+    archivo: ARCHIVO,
     accion: 'eliminar',
     id,
     datos: {}
