@@ -53,9 +53,16 @@ async function cargarRegistros() {
     div.innerHTML = '<em>No hay registros activos.</em>';
     return;
   }
+  function escapeJSString(str) {
+    return String(str)
+      .replace(/\\/g, "\\\\")
+      .replace(/'/g, "\\'")
+      .replace(/\n/g, "\\n")
+      .replace(/\r/g, "\\r");
+  }
   div.innerHTML = '<table><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr>' +
     data.map(r => `<tr><td>${r.id}</td><td>${r.nombre}</td><td>
-      <button onclick="editarRegistro('${r.id}','${r.nombre.replace(/'/g, "\'")}")">Editar</button>
+      <button onclick="editarRegistro('${r.id}','${escapeJSString(r.nombre)}')">Editar</button>
       <button onclick="eliminarRegistro('${r.id}')">Eliminar</button>
     </td></tr>`).join('') + '</table>';
 }
