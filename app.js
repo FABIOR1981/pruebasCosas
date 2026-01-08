@@ -32,15 +32,17 @@ btnCargar.onclick = cargarRegistros;
 
 async function cargarRegistros() {
   const resp = await fetch(URL_GET);
-  let data;
-  try {
-    data = await resp.json();
-  } catch {
-    data = { error: await resp.text() };
-  }
   const div = document.getElementById('resultados');
-  if (data.error) {
-    div.innerHTML = '<span style="color:red">' + data.error + '</span>';
+  let data;
+  if (resp.ok) {
+    try {
+      data = await resp.json();
+    } catch {
+      data = [];
+    }
+  } else {
+    const errorText = await resp.text();
+    div.innerHTML = '<span style="color:red">' + errorText + '</span>';
     return;
   }
   if (!Array.isArray(data) || data.length === 0) {
