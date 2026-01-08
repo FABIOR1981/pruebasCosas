@@ -2,17 +2,20 @@
 const URL_UPDATE = 'https://bibliofaro.netlify.app/.netlify/functions/update-archivo';
 const URL_GET = 'https://bibliofaro.netlify.app/.netlify/functions/get-archivo?proyecto=pruebasCosas&archivo=pruebasCosas.json';
 
-// Guardar registro
+// Guardar o modificar registro
 const form = document.getElementById('form-guardar');
+let registrosActuales = [];
 form.onsubmit = async function(e) {
   e.preventDefault();
   const id = document.getElementById('input-id').value.trim();
   const nombre = document.getElementById('input-nombre').value.trim();
   if (!id || !nombre) return;
+  // Verificar si el ID ya existe en los registros actuales
+  const existe = registrosActuales.some(r => r.id === id && r.activo !== false);
   const body = {
     proyecto: 'pruebasCosas',
     archivo: 'pruebasCosas.json',
-    accion: 'agregar',
+    accion: existe ? 'modificar' : 'agregar',
     id,
     datos: { nombre }
   };
@@ -45,6 +48,7 @@ async function cargarRegistros() {
     div.innerHTML = '<span style="color:red">' + errorText + '</span>';
     return;
   }
+  registrosActuales = Array.isArray(data) ? data : [];
   if (!Array.isArray(data) || data.length === 0) {
     div.innerHTML = '<em>No hay registros activos.</em>';
     return;
