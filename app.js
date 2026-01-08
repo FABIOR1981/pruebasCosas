@@ -11,7 +11,7 @@ form.onsubmit = async function(e) {
   if (!id || !nombre) return;
   const body = {
     proyecto: 'pruebasCosas',
-    archivo: 'pruebas.json',
+    archivo: 'pruebasCosas.json',
     accion: 'agregar',
     id,
     datos: { nombre }
@@ -65,7 +65,7 @@ window.eliminarRegistro = async function(id) {
   if (!confirm('¿Eliminar este registro?')) return;
   const body = {
     proyecto: 'pruebasCosas',
-    archivo: 'pruebas.json',
+    archivo: 'pruebasCosas.json',
     accion: 'eliminar',
     id,
     datos: {}
